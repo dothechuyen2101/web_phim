@@ -7,6 +7,7 @@ Web xem phim tổng hợp (phim lẻ, phim bộ, hoạt hình, anime, TV show). 
 - **Worker** đồng bộ dữ liệu riêng, xếp lịch bằng `pg-boss` (chạy trên Postgres, không cần Redis). Trên Vercel không có worker, thay bằng "tick" do Supabase pg_cron gọi mỗi 30 phút
 - Triển khai được lên **Vercel (gói Hobby miễn phí)** hoặc **VPS bằng Docker**
 - Đăng nhập bằng email/mật khẩu (scrypt + cookie JWT), có trang quản trị
+- Trang **Tập mới hôm nay** (`/tap-moi`), **thông báo tập mới** cho phim yêu thích (Web Push), cài được lên điện thoại như app (**PWA**)
 
 ## Nguồn dữ liệu
 
@@ -70,10 +71,12 @@ npm run dev:all                  # web http://localhost:3100 + worker đồng b�
 | `npm run sync -- [--source kkphim\|nguonc\|all] [--mode incremental\|backfill\|taxonomy] [--pages N] [--restart] [--slug X]` | Đồng bộ thủ công, không cần worker |
 | `npm run sync -- --mode check-links [--pages N]` | Kiểm tra N link (m3u8 gốc) còn sống không |
 | `npm run sync -- --mode rescue --movie-id N` | Tìm nguồn thay thế cho một phim ngay |
+| `npm run sync -- --mode notify` | Gửi thông báo tập mới ngay (bình thường tick / worker tự gửi) |
 | `npm run enqueue -- --source kkphim --mode backfill` | Gửi job cho worker đang chạy |
 | `npm run merge-duplicates [-- --apply]` | Tìm và gộp phim bộ bị trùng (bản không ghi số mùa TMDB nằm cạnh bản có mùa) |
 | `npm run create-admin -- --email ... --password ...` | Tạo admin, hoặc cấp quyền admin cho tài khoản đã có |
 | `npm run setup-cron -- --url https://... [--remove]` | (Vercel) Lập lịch Supabase pg_cron gọi `/api/cron/tick` (mặc định mỗi 30 phút, đổi bằng `--schedule "*/15 * * * *"`) |
+| `npx tsx scripts/generate-icons.ts` | Vẽ lại icon PWA, favicon, apple-icon từ logo |
 | `npm test` | Unit test (chuẩn hóa dữ liệu, adapter trên dữ liệu mẫu thật) |
 | `npm run lint` / `npm run typecheck` | Kiểm tra code |
 
@@ -152,6 +155,16 @@ tests/            unit test + fixtures JSON lấy từ API thật
 3. Thêm domain player của nguồn vào `EMBED_HOSTS`.
 4. Lưu một vài JSON thật vào `tests/fixtures/` và viết test.
 
+## Tập mới, thông báo và PWA
+
+- **`/tap-moi`**: các tập được thêm trong ngày (giờ Việt Nam), gom theo phim, xem lại được 7 ngày. Trang chủ có hàng "Tập mới hôm nay". "Tập mới" là tập web thêm vào **sau khi phim đã có trên web**; lúc nhập nguyên bộ phim mới thì không tính (cột `Episode.createdAt`).
+- **Thông báo tập mới (Web Push, miễn phí):** người dùng bấm "Yêu thích" rồi "Báo khi có tập mới" (hoặc bật ở trang Phim yêu thích). Mỗi lượt tick / worker, sau khi đồng bộ, web gửi thông báo cho tập mới của phim họ yêu thích: mỗi phim một thông báo, nhiều hơn 3 phim thì gộp lại. Thiết bị đã hủy đăng ký được tự xóa.
+  - Cần cặp khóa VAPID: `npx web-push generate-vapid-keys` → `NEXT_PUBLIC_VAPID_PUBLIC_KEY` và `VAPID_PRIVATE_KEY` (đặt ở `.env` và trên Vercel, rồi build lại vì khóa công khai được nhúng lúc build). **Đổi khóa thì mọi thiết bị phải bật lại thông báo.**
+  - Tùy chọn `VAPID_SUBJECT` (`mailto:...` hoặc `https://...`), mặc định là `SITE_URL`.
+  - iPhone/iPad chỉ nhận được thông báo khi web đã được **thêm vào màn hình chính** (iOS 16.4 trở lên); web tự hướng dẫn việc này.
+- **PWA:** `app/manifest.ts`, icon trong `public/icons` (vẽ bằng `scripts/generate-icons.ts`), service worker `public/sw.js` chỉ dùng cho thông báo, không cache trang. Trên điện thoại, từ lần ghé thứ hai web gợi ý cài app (đóng thì 14 ngày sau mới gợi ý lại); chân trang có nút "Cài ứng dụng".
+- **SEO:** trang danh sách không lọc có canonical trỏ về chính nó (giữ `?trang=N`); trang đang lọc / sắp xếp gắn `noindex, follow` để các tổ hợp bộ lọc không bị coi là trang trùng.
+
 ## Cache
 
 Dữ liệu công khai được cache bằng `"use cache"` với hai loại tag:
@@ -187,6 +200,7 @@ Vercel không có tiến trình chạy liên tục, nên **không có worker**. 
    | `SITE_NAME` | Tên web |
    | `SITE_URL` | Tùy chọn. Bỏ trống thì dùng domain `*.vercel.app`. Khi gắn domain riêng thì đặt biến này rồi **Redeploy** |
    | `EMBED_HOSTS` | Tùy chọn, như bản VPS |
+   | `NEXT_PUBLIC_VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY` | Khóa Web Push cho thông báo tập mới (xem mục bên dưới). Thiếu thì tính năng tự ẩn |
 
    Không cần `WEB_INTERNAL_URL` hay `DIRECT_URL` trên Vercel. File CA `certs/supabase-ca.crt` đã được kèm vào function (`outputFileTracingIncludes` trong `next.config.ts`).
 3. **Migration chạy từ máy bạn**, không chạy trong lúc Vercel build (build không cần DB): `npx prisma migrate deploy`. Lệnh này dùng `DIRECT_URL` (hoặc `DATABASE_URL`) session mode trong `.env` ở máy.

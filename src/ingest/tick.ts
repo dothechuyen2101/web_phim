@@ -7,7 +7,7 @@ import { ensureSources } from "./sync";
 /**
  * Một "nhịp" đồng bộ cho môi trường serverless (Vercel), thay cho worker chạy liên tục.
  * Được gọi định kỳ (Supabase pg_cron mỗi 30 phút → /api/cron/tick) và làm trong giới hạn thời gian:
- *   1. đồng bộ tăng dần mọi nguồn
+ *   1. đồng bộ tăng dần mọi nguồn, rồi báo tập mới (Web Push) cho người đã yêu thích phim
  *   2. xử lý job trong hàng đợi pg-boss (admin bấm, báo lỗi, tìm nguồn thay thế, backfill từng đợt nhỏ)
  *   3. việc định kỳ khi tới hạn: kiểm tra link (mỗi giờ), thể loại / quốc gia (mỗi ngày)
  */
@@ -93,6 +93,8 @@ export async function runTick({ budgetMs = 240_000, log = console.log } = {}): P
 
     // 1. Đồng bộ tăng dần — thường chỉ vài giây khi không có gì mới
     await run("incremental", { source: "all", mode: "incremental" });
+    // Báo ngay sau khi có tập mới; tập do job trong hàng đợi thêm vào sẽ được báo ở lượt sau
+    await run("notify", { source: "all", mode: "notify" });
 
     // 2. Hàng đợi
     while (hasTime()) {

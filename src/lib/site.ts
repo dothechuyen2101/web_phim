@@ -8,6 +8,16 @@ export const SITE_URL = (
 ).replace(/\/+$/, "");
 export const PAGE_SIZE = 24;
 
+/** Tập thêm vào sau khi phim đã có trên web quá chừng này mới tính là "tập mới" (không tính lúc nhập cả bộ phim). */
+export const NEW_EPISODE_GRACE_MINUTES = 10;
+
+/** Ngày theo giờ Việt Nam, dạng YYYY-MM-DD. */
+export const vnDate = (date: Date) => new Date(date.getTime() + 7 * 3_600_000).toISOString().slice(0, 10);
+
+/** `count` ngày gần nhất theo giờ Việt Nam, bắt đầu từ hôm nay. */
+export const recentVnDays = (count: number, now = new Date()) =>
+  Array.from({ length: count }, (_, i) => vnDate(new Date(now.getTime() - i * 86_400_000)));
+
 /** Danh sách theo loại: /danh-sach/[slug]. "anime" = hoạt hình Nhật Bản. */
 export const LIST_TYPES = {
   "phim-moi": { title: "Phim mới cập nhật", type: undefined, anime: false },

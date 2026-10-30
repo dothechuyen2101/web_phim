@@ -2,16 +2,22 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Reveal } from "@/components/ui";
 import { ListSkeleton, MovieListView } from "@/components/movie-list-view";
-import { parseFilters } from "@/lib/filters";
+import { listPageSeo, parseFilters } from "@/lib/filters";
 import { getFilterOptions, listMovies } from "@/lib/queries";
 
 async function findGenre(slug: string) {
   return (await getFilterOptions()).genres.find((g) => g.slug === slug) ?? null;
 }
 
-export async function generateMetadata({ params }: PageProps<"/the-loai/[slug]">): Promise<Metadata> {
-  const genre = await findGenre((await params).slug);
-  return genre ? { title: `Phim ${genre.name}`, description: `Tuyển tập phim ${genre.name} Vietsub, thuyết minh mới nhất.` } : {};
+export async function generateMetadata({ params, searchParams }: PageProps<"/the-loai/[slug]">): Promise<Metadata> {
+  const { slug } = await params;
+  const genre = await findGenre(slug);
+  if (!genre) return {};
+  return {
+    title: `Phim ${genre.name}`,
+    description: `Tuyển tập phim ${genre.name} Vietsub, thuyết minh mới nhất.`,
+    ...listPageSeo(`/the-loai/${slug}`, await searchParams),
+  };
 }
 
 export default function GenrePage(props: PageProps<"/the-loai/[slug]">) {

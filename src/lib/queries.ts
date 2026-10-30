@@ -2,7 +2,7 @@ import { cacheLife, cacheTag } from "next/cache";
 import type { Prisma } from "@/generated/prisma/client";
 import type { MovieStatus, MovieType } from "@/generated/prisma/enums";
 import { db } from "@/lib/db";
-import { PAGE_SIZE, type SortKey } from "@/lib/site";
+import { NEW_EPISODE_GRACE_MINUTES, PAGE_SIZE, type SortKey } from "@/lib/site";
 import { toSearchText } from "@/sources/normalize";
 
 /** Tag cho mọi danh sách phim (trang chủ, danh sách, tìm kiếm). Worker làm mới sau mỗi lần đồng bộ. */
@@ -118,6 +118,51 @@ export async function getHomeData() {
     genres: genres.map((g) => g.name),
   }));
   return { featured, series, singles, animation, anime, popular };
+}
+
+export interface NewEpisodesGroup {
+  movie: MovieCardData;
+  /** các tập mới trong ngày, theo thứ tự tập */
+  episodes: { key: string; name: string }[];
+  latestAt: Date;
+}
+
+/**
+ * Tập mới trong một ngày (YYYY-MM-DD, giờ Việt Nam), gom theo phim — phim vừa ra tập mới nhất lên đầu.
+ * Chỉ tính tập thêm vào sau khi phim đã có trên web (bỏ qua lúc nhập nguyên bộ phim mới).
+ */
+export async function getNewEpisodes(day: string): Promise<NewEpisodesGroup[]> {
+  "use cache";
+  cacheLife("catalog");
+  cacheTag(MOVIES_TAG);
+
+  const start = new Date(`${day}T00:00:00+07:00`);
+  const end = new Date(start.getTime() + 24 * 3_600_000);
+  const rows = await db.$queryRaw<{ movieId: number; key: string; name: string; sortOrder: number; createdAt: Date }[]>`
+    SELECT e."movieId", e."key", e."name", e."sortOrder", e."createdAt"
+    FROM "Episode" e JOIN "Movie" m ON m."id" = e."movieId"
+    WHERE e."createdAt" >= ${start} AND e."createdAt" < ${end} AND m."hidden" = false
+      AND e."createdAt" > m."createdAt" + ${NEW_EPISODE_GRACE_MINUTES}::int * interval '1 minute'
+    ORDER BY e."createdAt" DESC
+    LIMIT 5000`;
+
+  // Map giữ thứ tự chèn: phim xuất hiện đầu tiên là phim có tập mới nhất
+  const groups = new Map<number, { episodes: { key: string; name: string; sortOrder: number }[]; latestAt: Date }>();
+  for (const row of rows) {
+    const group = groups.get(row.movieId);
+    if (group) group.episodes.push(row);
+    else groups.set(row.movieId, { episodes: [row], latestAt: row.createdAt });
+  }
+  const movieIds = [...groups.keys()].slice(0, 300);
+  const movies = await db.movie.findMany({ where: { id: { in: movieIds } }, select: cardSelect });
+  const byId = new Map(movies.map((movie) => [movie.id, movie]));
+  return movieIds.flatMap((id) => {
+    const movie = byId.get(id);
+    const group = groups.get(id)!;
+    if (!movie) return [];
+    const episodes = group.episodes.sort((a, b) => a.sortOrder - b.sortOrder).map(({ key, name }) => ({ key, name }));
+    return [{ movie, episodes, latestAt: group.latestAt }];
+  });
 }
 
 export async function getFilterOptions() {

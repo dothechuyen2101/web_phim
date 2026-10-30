@@ -6,10 +6,12 @@
  *   npm run sync -- --source nguonc --slug duoi-day-ho
  *   npm run sync -- --mode check-links [--pages 50]        (số link cần kiểm tra)
  *   npm run sync -- --mode rescue --movie-id 123            (tìm nguồn thay thế, bỏ qua thời gian chờ)
+ *   npm run sync -- --mode notify                           (gửi thông báo tập mới ngay)
  */
 import "dotenv/config";
 import { parseArgs } from "node:util";
 import { checkLinks } from "@/ingest/links";
+import { notifyNewEpisodes } from "@/ingest/notify";
 import { rescueMovie } from "@/ingest/rescue";
 import { notifyRevalidate } from "@/ingest/revalidate";
 import { ensureSources, syncBackfill, syncIncremental, syncOne, syncTaxonomy } from "@/ingest/sync";
@@ -35,6 +37,10 @@ async function main() {
     const result = await checkLinks({ limit: maxPages ?? 200 });
     console.log("Kiểm tra link:", result);
     await notifyRevalidate(result.brokenSlugs);
+    return;
+  }
+  if (values.mode === "notify") {
+    console.log("Báo tập mới:", await notifyNewEpisodes());
     return;
   }
   if (values.mode === "rescue") {

@@ -18,6 +18,7 @@ services:
         SITE_URL: ${SITE_URL}
         SITE_NAME: ${SITE_NAME}
         EMBED_HOSTS: ${EMBED_HOSTS}
+        NEXT_PUBLIC_VAPID_PUBLIC_KEY: ${NEXT_PUBLIC_VAPID_PUBLIC_KEY:-}
     restart: unless-stopped
     env_file: .env.production
     depends_on:

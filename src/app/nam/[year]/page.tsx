@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Reveal } from "@/components/ui";
 import { ListSkeleton, MovieListView } from "@/components/movie-list-view";
-import { parseFilters } from "@/lib/filters";
+import { listPageSeo, parseFilters } from "@/lib/filters";
 import { getFilterOptions, listMovies } from "@/lib/queries";
 
 function parseYear(value: string) {
@@ -10,9 +10,14 @@ function parseYear(value: string) {
   return Number.isInteger(year) && year > 1900 && year < 2100 ? year : null;
 }
 
-export async function generateMetadata({ params }: PageProps<"/nam/[year]">): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: PageProps<"/nam/[year]">): Promise<Metadata> {
   const year = parseYear((await params).year);
-  return year ? { title: `Phim năm ${year}`, description: `Phim phát hành năm ${year} Vietsub, thuyết minh.` } : {};
+  if (!year) return {};
+  return {
+    title: `Phim năm ${year}`,
+    description: `Phim phát hành năm ${year} Vietsub, thuyết minh.`,
+    ...listPageSeo(`/nam/${year}`, await searchParams),
+  };
 }
 
 export default function YearPage(props: PageProps<"/nam/[year]">) {

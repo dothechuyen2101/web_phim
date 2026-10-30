@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import { BACKFILL_CHUNK_PAGES, type SyncJob } from "./jobs";
 import { checkLinks } from "./links";
+import { notifyNewEpisodes } from "./notify";
 import { rescueMovie } from "./rescue";
 import { syncBackfill, syncIncremental, syncOne, syncTaxonomy, type SyncResult } from "./sync";
 
@@ -29,6 +30,10 @@ export async function runSyncJob(job: SyncJob, ctx: RunnerContext): Promise<stri
     );
     for (const movieId of result.rescueMovieIds) await ctx.enqueue({ source: "all", mode: "rescue", movieId });
     return result.brokenSlugs;
+  }
+  if (job.mode === "notify") {
+    await notifyNewEpisodes({ log });
+    return [];
   }
   if (job.mode === "rescue") {
     if (!job.movieId) throw new Error("Job 'rescue' thiếu movieId");

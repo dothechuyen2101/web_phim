@@ -32,7 +32,11 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   async headers() {
-    return [{ source: "/:path*", headers: securityHeaders }];
+    return [
+      { source: "/:path*", headers: securityHeaders },
+      // Service worker luôn phải lấy bản mới nhất, nếu không bản sửa lỗi thông báo sẽ không tới được người dùng
+      { source: "/sw.js", headers: [{ key: "Cache-Control", value: "no-cache, no-store, must-revalidate" }] },
+    ];
   },
   turbopack: {
     rules: {

@@ -147,33 +147,36 @@ model MovieSource {
 }
 
 model Episode {
-  id        Int    @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   movieId   Int
   /// "1", "12-5", "full"… — dùng trong URL /xem/[slug]/tap-[key]
   key       String
   name      String
   sortOrder Float
+  /// lúc web thêm tập này — dùng cho "Tập mới" và thông báo tập mới
+  createdAt DateTime @default(now())
 
   movie Movie         @relation(fields: [movieId], references: [id], onDelete: Cascade)
   links EpisodeLink[]
 
   @@unique([movieId, key])
   @@index([movieId, sortOrder])
+  @@index([createdAt])
 }
 
 model EpisodeLink {
-  id         Int      @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   episodeId  Int
   sourceId   Int
   serverName String
   embedUrl   String
   /// link luồng gốc (m3u8) nếu nguồn cung cấp — dùng để kiểm tra link sống/chết
   streamUrl  String?
-  broken     Boolean  @default(false)
+  broken     Boolean   @default(false)
   /// số lần kiểm tra liên tiếp thấy link chết
-  failCount  Int      @default(0)
+  failCount  Int       @default(0)
   checkedAt  DateTime?
-  updatedAt  DateTime @updatedAt
+  updatedAt  DateTime  @updatedAt
 
   episode Episode  @relation(fields: [episodeId], references: [id], onDelete: Cascade)
   source  Source   @relation(fields: [sourceId], references: [id], onDelete: Cascade)
@@ -191,8 +194,23 @@ model User {
   role         Role     @default(USER)
   createdAt    DateTime @default(now())
 
-  favorites Favorite[]
-  histories WatchHistory[]
+  favorites         Favorite[]
+  histories         WatchHistory[]
+  pushSubscriptions PushSubscription[]
+}
+
+/// Thiết bị đã bật thông báo tập mới (Web Push) — mỗi trình duyệt một bản ghi
+model PushSubscription {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model Favorite {

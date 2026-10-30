@@ -2,15 +2,21 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Reveal } from "@/components/ui";
 import { ListSkeleton, MovieListView } from "@/components/movie-list-view";
-import { parseFilters } from "@/lib/filters";
+import { listPageSeo, parseFilters } from "@/lib/filters";
 import { getFilterOptions, listMovies } from "@/lib/queries";
 import { LIST_TYPES, type ListTypeSlug } from "@/lib/site";
 
 const listType = (slug: string) => (slug in LIST_TYPES ? LIST_TYPES[slug as ListTypeSlug] : null);
 
-export async function generateMetadata({ params }: PageProps<"/danh-sach/[type]">): Promise<Metadata> {
-  const def = listType((await params).type);
-  return def ? { title: def.title, description: `Danh sách ${def.title.toLowerCase()} Vietsub, thuyết minh mới nhất.` } : {};
+export async function generateMetadata({ params, searchParams }: PageProps<"/danh-sach/[type]">): Promise<Metadata> {
+  const { type } = await params;
+  const def = listType(type);
+  if (!def) return {};
+  return {
+    title: def.title,
+    description: `Danh sách ${def.title.toLowerCase()} Vietsub, thuyết minh mới nhất.`,
+    ...listPageSeo(`/danh-sach/${type}`, await searchParams),
+  };
 }
 
 export default function ListPage(props: PageProps<"/danh-sach/[type]">) {

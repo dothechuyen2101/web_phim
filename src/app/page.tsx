@@ -1,9 +1,13 @@
+import type { Metadata } from "next";
 import { connection } from "next/server";
 import { ContinueWatching } from "@/components/continue-watching";
 import { HeroCarousel } from "@/components/hero-carousel";
 import { MovieRow } from "@/components/movie-card";
 import { Container, Reveal, SectionHeader, Skeleton } from "@/components/ui";
-import { getHomeData, type MovieCardData } from "@/lib/queries";
+import { getHomeData, getNewEpisodes, type MovieCardData } from "@/lib/queries";
+import { recentVnDays } from "@/lib/site";
+
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 export default function HomePage() {
   return (
@@ -16,8 +20,17 @@ export default function HomePage() {
 async function HomeContent() {
   // Không prerender lúc build (build không cần DB); dữ liệu vẫn được cache qua "use cache" trong getHomeData
   await connection();
-  const data = await getHomeData();
+  const [today, yesterday] = recentVnDays(2);
+  const [data, newToday] = await Promise.all([getHomeData(), getNewEpisodes(today)]);
+  // Sáng sớm chưa có tập nào thì hiện tập mới của hôm qua
+  const hasToday = newToday.length > 0;
+  const newEpisodes = hasToday ? newToday : await getNewEpisodes(yesterday);
   const sections: [string, string, MovieCardData[]][] = [
+    [
+      hasToday ? "Tập mới hôm nay" : "Tập mới hôm qua",
+      hasToday ? "/tap-moi" : `/tap-moi?ngay=${yesterday}`,
+      newEpisodes.slice(0, 18).map((group) => group.movie),
+    ],
     ["Phim bộ mới", "/danh-sach/phim-bo", data.series],
     ["Phim lẻ mới", "/danh-sach/phim-le", data.singles],
     ["Hoạt hình", "/danh-sach/hoat-hinh", data.animation],

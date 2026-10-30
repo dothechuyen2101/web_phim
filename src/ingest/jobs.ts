@@ -9,8 +9,9 @@ export const BACKFILL_CHUNK_PAGES = 100;
  * - incremental / backfill / taxonomy / one: đồng bộ từ nguồn
  * - check-links: kiểm tra link sống/chết (định kỳ, hoặc các link cụ thể khi có báo lỗi)
  * - rescue: tìm link thay thế cho một phim có link chết
+ * - notify: gửi thông báo tập mới (Web Push) cho người đã yêu thích phim
  */
-export type SyncMode = "incremental" | "backfill" | "taxonomy" | "one" | "check-links" | "rescue";
+export type SyncMode = "incremental" | "backfill" | "taxonomy" | "one" | "check-links" | "rescue" | "notify";
 
 export interface SyncJob {
   /** key của nguồn, hoặc "all" = mọi nguồn đang bật */

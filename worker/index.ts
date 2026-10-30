@@ -2,6 +2,7 @@
  * Worker đồng bộ dữ liệu chạy liên tục (máy local / VPS): npm run worker
  * - Khi khởi động và mỗi 5 phút: đồng bộ tăng dần mọi nguồn đang bật (nguồn đang tạm dừng do lỗi sẽ tự bỏ qua).
  *   Lượt không có gì mới chỉ tốn 1 request / nguồn nên chạy dày vẫn nhẹ cho nguồn.
+ * - Mỗi 5 phút (lệch 2 phút sau đồng bộ): báo tập mới (Web Push) cho người đã yêu thích phim
  * - Mỗi giờ (phút 30): kiểm tra link sống/chết, link chết thì tìm nguồn thay thế
  * - 3h sáng mỗi ngày: cập nhật thể loại / quốc gia
  * - Xử lý job do trang admin / người xem gửi (đồng bộ ngay, backfill, crawl lại, tìm nguồn thay thế)
@@ -31,6 +32,7 @@ async function main() {
 
   const schedules: [string, string, SyncJob][] = [
     ["incremental", "*/5 * * * *", { source: "all", mode: "incremental" }],
+    ["notify", "2-59/5 * * * *", { source: "all", mode: "notify" }],
     ["check-links", "30 * * * *", { source: "all", mode: "check-links" }],
     ["taxonomy", "0 3 * * *", { source: "all", mode: "taxonomy" }],
   ];

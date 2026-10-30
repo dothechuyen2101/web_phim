@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import type { MovieStatus, MovieType } from "@/generated/prisma/enums";
 import type { MovieFilters } from "@/lib/queries";
 import { SORT_OPTIONS, type SortKey } from "@/lib/site";
@@ -26,6 +27,17 @@ export const first = (value: string | string[] | undefined) => (Array.isArray(va
 export function parsePage(value: string | string[] | undefined) {
   const page = Number.parseInt(first(value) ?? "1", 10);
   return Number.isFinite(page) && page >= 1 ? Math.min(page, 1000) : 1;
+}
+
+/**
+ * SEO cho trang danh sách:
+ * - không lọc: canonical trỏ về chính trang (giữ ?trang=N — mỗi trang phân trang là một trang riêng)
+ * - đang lọc / sắp xếp: noindex nhưng vẫn follow, để hàng nghìn tổ hợp bộ lọc không bị coi là trang trùng
+ */
+export function listPageSeo(basePath: string, searchParams: SearchParams): Metadata {
+  if (FILTER_KEYS.some((key) => first(searchParams[key]))) return { robots: { index: false, follow: true } };
+  const page = parsePage(searchParams.trang);
+  return { alternates: { canonical: page > 1 ? `${basePath}?trang=${page}` : basePath } };
 }
 
 /** Đọc bộ lọc từ searchParams và gộp với bộ lọc cố định của trang (ví dụ /the-loai/hanh-dong). */

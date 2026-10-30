@@ -18,11 +18,12 @@ FROM node:22-alpine AS build
 WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 # SITE_URL / SITE_NAME được nhúng vào phần prerender (metadata, robots, footer) và EMBED_HOSTS vào
-# header CSP lúc build, nên phải truyền vào khi build
+# header CSP lúc build, nên phải truyền vào khi build. Khóa công khai Web Push (NEXT_PUBLIC_) cũng được nhúng lúc build.
 ARG SITE_URL=http://localhost:3000
 ARG SITE_NAME="Web Phim"
 ARG EMBED_HOSTS="https://player.phimapi.com https://*.streamc.xyz https://*.streamvsmov.com"
-ENV SITE_URL=$SITE_URL SITE_NAME=$SITE_NAME EMBED_HOSTS=$EMBED_HOSTS
+ARG NEXT_PUBLIC_VAPID_PUBLIC_KEY=""
+ENV SITE_URL=$SITE_URL SITE_NAME=$SITE_NAME EMBED_HOSTS=$EMBED_HOSTS NEXT_PUBLIC_VAPID_PUBLIC_KEY=$NEXT_PUBLIC_VAPID_PUBLIC_KEY
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN --mount=type=secret,id=extra_ca \

@@ -2,16 +2,22 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Reveal } from "@/components/ui";
 import { ListSkeleton, MovieListView } from "@/components/movie-list-view";
-import { parseFilters } from "@/lib/filters";
+import { listPageSeo, parseFilters } from "@/lib/filters";
 import { getFilterOptions, listMovies } from "@/lib/queries";
 
 async function findCountry(slug: string) {
   return (await getFilterOptions()).countries.find((c) => c.slug === slug) ?? null;
 }
 
-export async function generateMetadata({ params }: PageProps<"/quoc-gia/[slug]">): Promise<Metadata> {
-  const country = await findCountry((await params).slug);
-  return country ? { title: `Phim ${country.name}`, description: `Phim ${country.name} Vietsub, thuyết minh mới nhất.` } : {};
+export async function generateMetadata({ params, searchParams }: PageProps<"/quoc-gia/[slug]">): Promise<Metadata> {
+  const { slug } = await params;
+  const country = await findCountry(slug);
+  if (!country) return {};
+  return {
+    title: `Phim ${country.name}`,
+    description: `Phim ${country.name} Vietsub, thuyết minh mới nhất.`,
+    ...listPageSeo(`/quoc-gia/${slug}`, await searchParams),
+  };
 }
 
 export default function CountryPage(props: PageProps<"/quoc-gia/[slug]">) {

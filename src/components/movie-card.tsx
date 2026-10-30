@@ -29,12 +29,15 @@ export function MovieCard({
   priority,
   className,
   index = 0,
+  flag,
 }: {
   movie: MovieCardData;
   priority?: boolean;
   className?: string;
   /** thứ tự để các thẻ hiện ra lần lượt */
   index?: number;
+  /** nhãn nổi bật ở góc dưới, ví dụ "Tập mới" */
+  flag?: string;
 }) {
   return (
     <Link
@@ -61,6 +64,7 @@ export function MovieCard({
           <Play className="ml-0.5 size-5 fill-current" aria-hidden />
         </span>
         {movie.lang && <Badge className="absolute bottom-2 left-2 bg-black/60 text-muted">{movie.lang}</Badge>}
+        {flag && <Badge className="absolute bottom-2 right-2 bg-gradient-to-r from-accent to-accent-2 text-accent-fg shadow-lg shadow-accent/30">{flag}</Badge>}
       </div>
       <h3 className="mt-2.5 line-clamp-1 text-sm font-semibold transition-colors group-hover:text-accent">{movie.name}</h3>
       <p className="line-clamp-1 text-xs text-muted">{[movie.originName, movie.year].filter(Boolean).join(" · ")}</p>
@@ -68,11 +72,11 @@ export function MovieCard({
   );
 }
 
-export function MovieGrid({ movies }: { movies: MovieCardData[] }) {
+export function MovieGrid({ movies, flags }: { movies: MovieCardData[]; flags?: Map<number, string> }) {
   return (
     <div className="grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
       {movies.map((movie, i) => (
-        <MovieCard key={movie.id} movie={movie} priority={i < 6} index={i} />
+        <MovieCard key={movie.id} movie={movie} priority={i < 6} index={i} flag={flags?.get(movie.id)} />
       ))}
     </div>
   );

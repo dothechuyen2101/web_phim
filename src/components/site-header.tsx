@@ -9,6 +9,7 @@ import { UserMenu } from "@/components/user-menu";
 import { NAV_COUNTRIES, NAV_GENRES, SITE_NAME } from "@/lib/site";
 
 export const MAIN_NAV = [
+  ["/tap-moi", "Tập mới"],
   ["/danh-sach/phim-moi", "Phim mới"],
   ["/danh-sach/phim-bo", "Phim bộ"],
   ["/danh-sach/phim-le", "Phim lẻ"],

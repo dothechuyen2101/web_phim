@@ -21,6 +21,7 @@ export async function GET(_: Request, { params }: RouteContext<"/sitemaps/[file]
   if (file === "pages.xml") {
     const paths = [
       "/",
+      "/tap-moi",
       ...Object.keys(LIST_TYPES).map((slug) => `/danh-sach/${slug}`),
       ...NAV_GENRES.map(([slug]) => `/the-loai/${slug}`),
       ...NAV_COUNTRIES.map(([slug]) => `/quoc-gia/${slug}`),

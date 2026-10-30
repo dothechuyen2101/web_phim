@@ -1,5 +1,6 @@
 import { Clapperboard } from "lucide-react";
 import Link from "next/link";
+import { InstallButton } from "@/components/pwa";
 import { Container } from "@/components/ui";
 import { NAV_GENRES, SITE_NAME } from "@/lib/site";
 
@@ -28,6 +29,9 @@ export function SiteFooter() {
           ))}
         </nav>
         <nav aria-label="Liên kết" className="flex flex-col gap-1.5">
+          <Link href="/tap-moi" className="transition-colors hover:text-accent">
+            Tập mới hôm nay
+          </Link>
           <Link href="/danh-sach/phim-moi" className="transition-colors hover:text-accent">
             Phim mới cập nhật
           </Link>
@@ -37,6 +41,7 @@ export function SiteFooter() {
           <Link href="/gui-yeu-cau-go" className="transition-colors hover:text-accent">
             Yêu cầu gỡ nội dung
           </Link>
+          <InstallButton />
         </nav>
       </Container>
     </footer>
