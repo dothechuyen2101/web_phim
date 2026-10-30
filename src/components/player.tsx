@@ -1,7 +1,7 @@
 "use client";
 
 import { Flag, LoaderCircle, RefreshCw, Server, TriangleAlert } from "lucide-react";
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
 import { recordWatch } from "@/app/actions/library";
 import { reportPlaybackIssue } from "@/app/actions/feedback";
 import { HlsVideo } from "@/components/hls-video";
@@ -27,6 +27,9 @@ const SERVER_PREF_KEY = "phim:server";
 const SLOW_MS = 15_000;
 
 const serverKey = (s: PlayerServer) => `${s.kind}:${s.url}`;
+
+/** Iframe đang tạm thay bằng about:blank vì trang xem bị ẩn. */
+const blankedFrames = new WeakSet<HTMLIFrameElement>();
 
 function readPref() {
   try {
@@ -63,6 +66,24 @@ export function Player({
   const currentKey = current ? serverKey(current) : null;
   const loaded = loadedKey === currentKey;
   const slow = slowKey === currentKey && !loaded;
+  const frameRef = useRef<HTMLIFrameElement>(null);
+
+  // Rời trang xem, Next.js không gỡ trang mà chỉ ẩn đi (<Activity>, display: none) nên iframe vẫn phát tiếng.
+  // Player của nguồn khác domain, không ra lệnh dừng được: lúc bị ẩn thì bỏ trang player, quay lại thì nạp lại.
+  const embedUrl = current?.kind === "embed" ? current.url : null;
+  // Dùng location.replace (được phép cả với iframe khác domain): gán src sẽ thêm mục vào lịch sử trình duyệt,
+  // khi đó nút Back chỉ lùi trong iframe đang ẩn thay vì quay về trang xem.
+  useLayoutEffect(() => {
+    const frame = frameRef.current;
+    if (!frame || !embedUrl) return;
+    if (blankedFrames.delete(frame)) frame.contentWindow?.location.replace(embedUrl);
+    return () => {
+      blankedFrames.add(frame);
+      frame.contentWindow?.location.replace("about:blank");
+      setLoadedKey(null);
+    };
+    // currentKey: đổi server là iframe mới (key khác) dù URL có thể trùng
+  }, [embedUrl, currentKey]);
 
   // Ghi lịch sử xem + lượt xem (mỗi phim chỉ đếm một lần trong một phiên trình duyệt)
   useEffect(() => {
@@ -117,13 +138,17 @@ export function Player({
         {current?.kind === "embed" && (
           <iframe
             key={currentKey}
+            ref={frameRef}
             src={current.url}
             title={`${movie.name} – ${episode.name}`}
             allowFullScreen
             allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
             // Không dùng "no-referrer": NguonC từ chối khi thiếu Referer
             referrerPolicy="strict-origin-when-cross-origin"
-            onLoad={() => setLoadedKey(currentKey)}
+            onLoad={(event) => {
+              // about:blank (lúc trang bị ẩn) cũng phát sự kiện load: không tính là player đã tải
+              if (!blankedFrames.has(event.currentTarget)) setLoadedKey(currentKey);
+            }}
             className={cn("absolute inset-0 size-full border-0 transition-opacity duration-700", loaded ? "opacity-100" : "opacity-0")}
           />
         )}
