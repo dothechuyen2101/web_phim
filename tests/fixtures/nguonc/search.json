@@ -1,0 +1,321 @@
+{
+    "status": "success",
+    "paginate": {
+        "current_page": 1,
+        "total_page": 2,
+        "total_items": 15,
+        "items_per_page": 10
+    },
+    "items": [
+        {
+            "id": "eyJpdiI6IjNsRjdRbFRTdGhocVNxZnR0Wi9paVE9PSIsInZhbHVlIjoic1VxVWNKNllxWXc3Z3JMd2ZUT2ZqQT09IiwibWFjIjoiMTc4ZGE5ZGQwOTE4Mjc5MDNhYjUxNGVjZGRkOGE4MGE3MzgzMjAyNDc2OTIxZmM4NGZmMzI3ZjFjOWZkODAxZSJ9",
+            "name": "The Lake (Phần 1)",
+            "original_name": "The Lake (Season 1)",
+            "slug": "the-lake-phan-1",
+            "year": 2022,
+            "description": "Trở về từ nước ngoài sau cuộc chia tay với người tình lâu năm, Justin lên kế hoạch kết nối với cô con gái tuổi teen mà anh đã cho làm con nuôi. Kế hoạch tạo nên những kỷ niệm mới với con gái tại ngôi nhà nhỏ của gia đình anh trở nên tồi tệ khi anh phát hiện ra cha mẹ mình đã để lại nó cho người chị kế đẹp như tranh vẽ của anh, Maisy-May.",
+            "total_episodes": 8,
+            "current_episode": "Hoàn tất (8/8)",
+            "time": "30 phút/tập",
+            "quality": "HD",
+            "language": "Vietsub",
+            "director": "Paul Fox",
+            "casts": "Jordan Gavaris, Julia Stiles, Madison Shamoun",
+            "tmdb": {
+                "id": null,
+                "type": null,
+                "season": null,
+                "url": null
+            },
+            "imdb": {
+                "id": null,
+                "url": null
+            },
+            "thumb_url": "https://img.nguonc.com/images/img-24de35a168b831f0cc70a7266e5dae28bb94e10675d2caf69089722930d6808f.jpg",
+            "thumb_url_webp": "https://img.nguonc.com/images/img-4c39d0d7fb71f01209f11fe00af335ce8a228678a080059fea1fab3625fe354f.webp",
+            "poster_url": "https://img.nguonc.com/images/img-bcb7ef4664f2fec3fbbafe927be0e021855e26a967d4d13d29a6325151ee2b81.jpg",
+            "poster_url_webp": "https://img.nguonc.com/images/img-1e911b4db289b0d5303c481327f8f3e07d04015fe8fb0c18c66061405769389e.webp",
+            "created": "2023-08-10T13:52:42.000000Z",
+            "modified": "2025-07-05T14:14:27.000000Z"
+        },
+        {
+            "id": "eyJpdiI6Ink4VzJUQXlORGpNNkw0OEsyMEZaZ2c9PSIsInZhbHVlIjoiejBjVkt1eTdQYTVqSmhxWE9tUUZCQT09IiwibWFjIjoiN2I4YWYwZTllYmI4Mzg5ZjlhMzBkYWQwOGExYTQ3ODMzM2Y2MDE5MTMzYTBiMzgxOTczMjZjNDIwOTE3NDE5MCJ9",
+            "name": "The Lake (Phần 2)",
+            "original_name": "The Lake (Season 2)",
+            "slug": "the-lake-phan-2",
+            "year": 2023,
+            "description": "Justin quyết tâm làm cho mùa hè này trở nên tuyệt vời nhất. Thật không may, kế hoạch của anh ta tan thành mây khói khi pháo hoa của anh ta làm nổ tung nhà thuyền. Mọi người đổ lỗi cho Justin, nhưng anh ấy biết mình vô tội. Anh chỉ cần chứng minh điều đó. Mẹ của Maisy, Mimsy, xuất hiện để cùng gia đình trải qua mùa hè “cuối cùng” của cô ấy. Và Billie gặp cả một người trồng cây xinh đẹp và một nhà hoạt động khí hậu, những người cũng đe dọa sẽ thổi bay mùa hè của cô ấy.",
+            "total_episodes": 8,
+            "current_episode": "Hoàn tất (8/8)",
+            "time": "30 phút/tập",
+            "quality": "HD",
+            "language": "Vietsub",
+            "director": "Paul Fox",
+            "casts": "Jordan Gavaris, Julia Stiles, Madison Shamoun",
+            "tmdb": {
+                "id": 158051,
+                "type": "tv",
+                "season": 2,
+                "url": "https://www.themoviedb.org/tv/158051/season/2"
+            },
+            "imdb": {
+                "id": "tt15176890",
+                "url": "https://www.imdb.com/title/tt15176890/"
+            },
+            "thumb_url": "https://img.nguonc.com/images/img-ba72616ae101d3f256f7a4c537a47b459d4777e09cacbee2bc6cec1bb117ab5f.jpg",
+            "thumb_url_webp": "https://img.nguonc.com/images/img-4a3d5f27796f12e2609e41821014a758af3a4e2e91f536814f812a41c947355f.webp",
+            "poster_url": "https://img.nguonc.com/images/img-23e801f020120afcc7d4c76dc04622afdbb368ebf2af168c70fc9a49b63e4b90.jpg",
+            "poster_url_webp": "https://img.nguonc.com/images/img-9e2e807c29b2bcc78b24d05c8898dcd2b5f78874ca2d1f2b4c387a74e147d3c8.webp",
+            "created": "2023-08-10T12:50:42.000000Z",
+            "modified": "2025-07-05T14:14:25.000000Z"
+        },
+        {
+            "id": "eyJpdiI6ImRWZGI0ZkZlYWRwQW13SEl5eUpYTlE9PSIsInZhbHVlIjoib1ZpNEZYeU1BRVpGYzdjYnpjQWlQdz09IiwibWFjIjoiOWU5N2IwODkwNDA0NGQ4NjJhMTQ4OWFhZWJhNWEwNmMwY2FkNmNjZDMyZDk2ZGU5ZjVkZjMyYWIyZTdmZWYwMyJ9",
+            "name": "Quái Vật Sông Mekong",
+            "original_name": "The Lake",
+            "slug": "quai-vat-song-mekong",
+            "year": 2022,
+            "description": "Đặt bối cảnh tại làng Buengkan, một tỉnh thuộc miền Bắc Thái Lan, Quái Vật Sông Mekong chính thức trở thành cơn ác mộng đối với dân làng và được coi là khơi nguồn của thảm họa ngay khi nó phá hủy mọi thứ và khiến mọi người bị mất kết nối hoàn toàn với thế giới bên ngoài. Sự kiện chấn động toàn Thái Lan này đã khiến các cơ quan chức năng cùng những nhà khoa học vô tình đến Bueng Kan để tiến hành nghiên cứu phải huy động tất cả các lực lượng để bắt con quái vật điên rồ này trước khi quá muộn.",
+            "total_episodes": 1,
+            "current_episode": "FULL",
+            "time": "105 phút",
+            "quality": "HD",
+            "language": "Vietsub",
+            "director": "Lee Thongkham",
+            "casts": "Theerapat Sajakul, Sushar Manaying, Vithaya Pansringarm",
+            "tmdb": {
+                "id": 709716,
+                "type": "movie",
+                "season": null,
+                "url": "https://www.themoviedb.org/movie/709716"
+            },
+            "imdb": {
+                "id": "tt21399082",
+                "url": "https://www.imdb.com/title/tt21399082/"
+            },
+            "thumb_url": "https://img.nguonc.com/images/img-554c7c3e3681cd00c6087e27d5972978d21d17fc8b741ad6a60411a69a58f574.jpg",
+            "thumb_url_webp": "https://img.nguonc.com/images/img-de161783d14f9a73e5de05cc73a7fbccccea1113ab787c1401b15a4f4cb0c1ac.webp",
+            "poster_url": "https://img.nguonc.com/images/img-b49dbdefc7d95a2ed375a6b843e103a0a88ae978ebc16be0a302fef34d81d8bb.jpg",
+            "poster_url_webp": "https://img.nguonc.com/images/img-a0809255819699750ff6f0339baee52ee062982ca2f1447c7ed9381a29c1bbcf.webp",
+            "created": "2023-06-26T06:03:59.000000Z",
+            "modified": "2025-07-04T17:27:47.000000Z"
+        },
+        {
+            "id": "eyJpdiI6IkczL1dXb2xyR3BXZGF4WjZkVmdaZGc9PSIsInZhbHVlIjoiall5eDRlSnk5WnJ0bDk3NGJkUERpQT09IiwibWFjIjoiODBmMjRjMDJjZjg3ZGUwZTM2NmY4YjdjNjkzM2ZkZGIxM2I1MDkxMjI2YTAxYzg4ZWVhMDAyMDE4Y2Q3ZjdmOCJ9",
+            "name": "Trận Chiến Hồ Trường Tân",
+            "original_name": "The Battle at Lake Changjin",
+            "slug": "tran-chien-ho-truong-tan",
+            "year": 2021,
+            "description": "Thuyết Minh Bộ phim mô tả câu chuyện của những người lính Trung Quốc buộc quân đội Mỹ phải rút lui trong một câu chuyện hư cấu kể lại Trận chiến Hồ chứa Chosin trong Chiến tranh Triều Tiên",
+            "total_episodes": 1,
+            "current_episode": "FULL",
+            "time": "178 phút",
+            "quality": "HD",
+            "language": "Vietsub",
+            "director": "Trần Khải Ca",
+            "casts": "Ngô Kinh, Dịch Dương Thiên Tỉ, Đoạn Dịch Hoành",
+            "tmdb": {
+                "id": 779029,
+                "type": "movie",
+                "season": null,
+                "url": "https://www.themoviedb.org/movie/779029"
+            },
+            "imdb": {
+                "id": "tt13462900",
+                "url": "https://www.imdb.com/title/tt13462900/"
+            },
+            "thumb_url": "https://img.nguonc.com/images/img-2210f65bc0827862431b3f21bcee76dc0350b304732b9fc049a57abbd5f4c030.jpg",
+            "thumb_url_webp": "https://img.nguonc.com/images/img-7bb5ccc177271d876f002a23596139565b8792ba77ca07f7af510b0005b2691e.webp",
+            "poster_url": "https://img.nguonc.com/images/img-c9f2c0cd454e6d09e9eca859c0772a5cc3f2760277c855e829465b02f1bf472f.jpg",
+            "poster_url_webp": "https://img.nguonc.com/images/img-eedaa4cc4a9e6681e2cdc4835d9b68d2d72eb6c5438f488079581d2f9dee3a8f.webp",
+            "created": "2023-06-30T18:07:47.000000Z",
+            "modified": "2025-02-08T18:58:14.000000Z"
+        },
+        {
+            "id": "eyJpdiI6InBxempGUGg2a2gwbHl3QlFxVXNwcEE9PSIsInZhbHVlIjoiMzJvRFV3alc1SE5FR3ErNkNhcDAxZz09IiwibWFjIjoiM2QxMTZkNjJjZjk5ODVkNDFhZmU4Njg3NjYzN2FlZDI4NDhkMDgyMzQ0MzJhZTMxODE5MmExYTg0ZDEyM2IwOCJ9",
+            "name": "Ngôi Nhà Bên Hồ",
+            "original_name": "The Lake House",
+            "slug": "ngoi-nha-ben-ho",
+            "year": 2006,
+            "description": "Câu chuyện kể về hai người được kết nối bởi một ngôi nhà ven hồ mà cả hai đã sống và ngày càng thấy mình yêu nhau hơn mặc dù họ chưa bao giờ gặp mặt. Một loạt các tương tác và một số thao tác thời gian bắt đầu tạo nên một mối quan hệ thực sự.",
+            "total_episodes": 1,
+            "current_episode": "FULL",
+            "time": "99 phút",
+            "quality": "HD",
+            "language": "Vietsub",
+            "director": "Alejandro Agresti",
+            "casts": "Keanu Reeves, Sandra Bullock, Christopher Plummer",
+            "tmdb": {
+                "id": 2044,
+                "type": "movie",
+                "season": null,
+                "url": "https://www.themoviedb.org/movie/2044"
+            },
+            "imdb": {
+                "id": "tt0410297",
+                "url": "https://www.imdb.com/title/tt0410297/"
+            },
+            "thumb_url": "https://img.nguonc.com/images/img-db1237091948d21d5f5caa6b2ec0d6b17745d53239bb947e68489b32cbbbd48f.jpg",
+            "thumb_url_webp": "https://img.nguonc.com/images/img-51771c69849ba1d807205e2c2d1cd0cb63b618e21a33a8fbf126239f6756b39a.webp",
+            "poster_url": "https://img.nguonc.com/images/img-4086b6e94647d036ca07d8f1d8f6aa4e93f0578a3157e728430e79b3dc02b990.jpg",
+            "poster_url_webp": "https://img.nguonc.com/images/img-72701835884b26f13297460fe78dca68810f580e6d037f418351fc1aef8990b7.webp",
+            "created": "2023-07-02T04:37:50.000000Z",
+            "modified": "2024-08-29T03:30:50.000000Z"
+        },
+        {
+            "id": "eyJpdiI6IkZ4ZkRod3YrQk9uSVQrclF2eHVaTkE9PSIsInZhbHVlIjoibWpjZ1FtMmYwb0dDa2Nwc0hGaU5pUT09IiwibWFjIjoiMWVhMjg2OWM2NDQxYmM2MDY0M2U5N2JiODlhODk4YWFlYmQwMGI1ZjgxZjYyYWFkZDVjMjNjODU4MzBhNmI5OCJ9",
+            "name": "Hồ Máu: Cuộc Tấn Công Của Cá Mút Đá",
+            "original_name": "Blood Lake: Attack of the Killer Lampreys",
+            "slug": "ho-mau-cuoc-tan-cong-cua-ca-mut-da",
+            "year": 2014,
+            "description": "Chẳng bao lâu, những con chim chích chòe đèn bắt đầu ăn thịt người, lần đầu tiên tấn công Rich khi anh ta đi ra hồ để cố đếm số lượng chim ưng biển. Thi thể của anh ta được tìm thấy và đưa đến nhà xác, nơi các bóng đèn nổ ra từ khoang ngực của anh ta và giết chết nhân viên điều tra, trước khi họ thoát vào đường ống và xâm nhập vào hệ thống nước. Mặc dù vậy, Thị trưởng Akerman vẫn từ chối đóng cửa hồ và Michael tự mình nói chuyện với báo chí. Khi Thị trưởng Akerman nhìn thấy điều này, ông ta đã khiến Michael bị sa thải bằng cách kêu gọi sự ưu ái với sếp của Michael.",
+            "total_episodes": 1,
+            "current_episode": "FULL",
+            "time": "90 phút",
+            "quality": "HD",
+            "language": "Vietsub",
+            "director": "James Cullen Bressack",
+            "casts": "Shannen Doherty, Jason Brooks, Zack Ward",
+            "tmdb": {
+                "id": 270851,
+                "type": "movie",
+                "season": null,
+                "url": "https://www.themoviedb.org/movie/270851"
+            },
+            "imdb": {
+                "id": "tt3723790",
+                "url": "https://www.imdb.com/title/tt3723790/"
+            },
+            "thumb_url": "https://img.nguonc.com/images/img-c0367a8e87fb54237fd8d83d845cbe5a97d5cf38ebbd1e19133632b0dad728f6.jpg",
+            "thumb_url_webp": "https://img.nguonc.com/images/img-6ee0d11fa542418cf146ea3a53ae51c4ad290cd9d4bdd1472d623a02b3b57c15.webp",
+            "poster_url": "https://img.nguonc.com/images/img-87b9d82413111213aca1f86b9690e0873c06c7211f86237fdbb93c0ff810ef0c.jpg",
+            "poster_url_webp": "https://img.nguonc.com/images/img-87471da7105915a9c28fe68a47b38d50d17c7c83d83b0df188ee9b240384584a.webp",
+            "created": "2023-07-02T05:35:30.000000Z",
+            "modified": "2025-06-25T12:06:48.000000Z"
+        },
+        {
+            "id": "eyJpdiI6IjkxRE5waG0zWm81TG5UaEFQZW9Ma0E9PSIsInZhbHVlIjoiaStCd0ZLa2VkN2p6QkE4UzJQNGFqZz09IiwibWFjIjoiZGZkNWQ4YjJlZTg3MzcxOGQ4NGU5ZjY1ZTIzNGEwNWU2MzYxMDdiMzI3MjFlY2I4MmUyZTFmNTMzZTcxZjI4OCJ9",
+            "name": "Mỹ Nhân Ngư: Hồ Tử Thần",
+            "original_name": "The Mermaid: Lake Of The Dead",
+            "slug": "my-nhan-ngu-ho-tu-than",
+            "year": 2018,
+            "description": "Truyền thuyết kể rằng, nếu bạn bơi tại hồ tử thần vào ban đêm, Mỹ nhân ngư sẽ xuất hiện… Từ nhiều năm trước, một cô gái trẻ không may bị chết đuối và trở thành Tiên cá hắc ám dưới Hồ Tử Thần. Ả ta sa vào lưới tình với Roman và muốn giữ chàng cho riêng mình mãi mãi. Để vĩnh viễn chiếm đoạt Roman, ả âm mưu dìm hôn thê Marina của chàng xuống đáy hồ. Điều gì sẽ xảy ra? Liệu Marina có cứu được chính mình cùng với Roman?”",
+            "total_episodes": 1,
+            "current_episode": "FULL",
+            "time": "90 phút",
+            "quality": "HD",
+            "language": "Vietsub",
+            "director": "Svyatoslav Podgaevsky",
+            "casts": "Victoria Agalakova, Efim Petrunin, Nikita Elenev",
+            "tmdb": {
+                "id": 516850,
+                "type": "movie",
+                "season": null,
+                "url": "https://www.themoviedb.org/movie/516850"
+            },
+            "imdb": {
+                "id": "tt7162390",
+                "url": "https://www.imdb.com/title/tt7162390/"
+            },
+            "thumb_url": "https://img.nguonc.com/images/img-58566982f049f19d21a42808e593dbe20aeac6c64b896dbaf2e6eeca576575e5.jpg",
+            "thumb_url_webp": "https://img.nguonc.com/images/img-2af8a0f57d56f6fa2208ceb1e62bfda9bed08fa1ade1894a38effa1915a52f51.webp",
+            "poster_url": "https://img.nguonc.com/images/img-5f52deee43924e3f8783f35c9b0fae29df027903431070cb952ceebdbebf9581.jpg",
+            "poster_url_webp": "https://img.nguonc.com/images/img-1b9243bbf1c3e9b0b950b1d392353218a85a668e4fa226e420dbf556b456d2f6.webp",
+            "created": "2023-07-05T04:10:06.000000Z",
+            "modified": "2024-07-13T15:32:12.000000Z"
+        },
+        {
+            "id": "eyJpdiI6IjdTTUZwbXBzS0xCdTJYRkxvamR4Smc9PSIsInZhbHVlIjoibHZydzFHS1hxd2lwazk4OGNQV3ZLdz09IiwibWFjIjoiODUxY2M3MTEyMDYxN2Q1N2EwMjQ2NmI0MGJhYWU5Y2M5MDQ2MTQ2MDZlMGIxMTNiMzkyZDE5MDI0MGVmMTIwMiJ9",
+            "name": "Cuộc Gặp Gỡ Ở Bến Xe Phía Nam",
+            "original_name": "The Wild Goose Lake",
+            "slug": "cuoc-gap-go-o-ben-xe-phia-nam",
+            "year": 2019,
+            "description": "<p>Thủ lĩnh nhóm trộm xe Chu Trạch Nông phải chạy trốn sự truy lùng được treo thưởng một món tiền lớn, khó khăn cứu lấy mình! Mạo hiểm và tình yêu, nhân tính và cứu rỗi, màn \\\"gặp gỡ\\\" đặc biệt này sẽ có kết cục thế nào đây?</p>",
+            "total_episodes": 1,
+            "current_episode": "FULL",
+            "time": "1H50M39S",
+            "quality": "HD",
+            "language": "Vietsub",
+            "director": "Yi'nan Diao",
+            "casts": "Hugh, 桂綸鎂, Liêu Phàm, Regina Wan, Qi Dao",
+            "tmdb": {
+                "id": 575428,
+                "type": "movie",
+                "season": null,
+                "url": "https://www.themoviedb.org/movie/575428"
+            },
+            "imdb": {
+                "id": "tt9647768",
+                "url": "https://www.imdb.com/title/tt9647768/"
+            },
+            "thumb_url": "https://img.nguonc.com/images/img-eacc64bad604d6226c385c032dac4a13e25c0113adb6eeb3c98dfec746fe822a.jpg",
+            "thumb_url_webp": "https://img.nguonc.com/images/img-25889c5a7bcfe0c2962905f449b41bf691e47ecca7cbbfb562a26e8ea8c00ea4.webp",
+            "poster_url": "https://img.nguonc.com/images/img-237ee654df72bc8a4cbfbc4debb17d08d0c5ad904c41f97d3ef12a2ea2263ccd.jpg",
+            "poster_url_webp": "https://img.nguonc.com/images/img-b0bdf8680e280c803477b8c4ffa9d260b0290a70ecf9a93eef88f58815558bbb.webp",
+            "created": "2023-08-01T09:18:31.000000Z",
+            "modified": "2024-11-22T12:53:36.000000Z"
+        },
+        {
+            "id": "eyJpdiI6IjAzQ3BGbFRmT05zM0ErdHZKWFhuTkE9PSIsInZhbHVlIjoibHBpVXV0Z2M5dnYzWnV3VzR4bExiQT09IiwibWFjIjoiMGVhYjhjN2Y5ZjliYmI0N2M2M2UyZGVjYTljODVlZjYwODRiYTRhMGYyM2ZmZDE1ZDliNjcwNzJmMWE2ZjJiMCJ9",
+            "name": "Đào Thoát Tới Hồ Vongozero",
+            "original_name": "To the Lake",
+            "slug": "dao-thoat-toi-ho-vongozero",
+            "year": 2020,
+            "description": "Đối mặt với dấu chấm kết của nền văn minh khi dịch bệnh đáng sợ tấn công, một nhóm người đánh cược mạng sống, tình yêu và nhân tính trong cuộc chiến tàn khốc để tồn tại.",
+            "total_episodes": 8,
+            "current_episode": "Hoàn tất (8/8)",
+            "time": "56 phút/tập",
+            "quality": "HD",
+            "language": "Vietsub",
+            "director": "Pavel Kostomarov",
+            "casts": "Viktoriya Isakova, Kirill Käro, Aleksandr Robak, Natalya Zemtsova, Maryana Spivak",
+            "tmdb": {
+                "id": 95202,
+                "type": "tv",
+                "season": null,
+                "url": "https://www.themoviedb.org/tv/95202"
+            },
+            "imdb": {
+                "id": "tt9151230",
+                "url": "https://www.imdb.com/title/tt9151230/"
+            },
+            "thumb_url": "https://img.nguonc.com/images/img-effa8a4568d0a2cf2d9fd6d3229fced9ba6c911fbc4dbdf6e69be6d3eb50cf1f.jpg",
+            "thumb_url_webp": "https://img.nguonc.com/images/img-c92314ba8135fc647796c19afaf79e76b02846b41705b1a300ad3dcb6e370d89.webp",
+            "poster_url": "https://img.nguonc.com/images/img-5226b32108f2824f9a00a27bd719b1b6351137ccb232d8effa504aece766646e.jpg",
+            "poster_url_webp": "https://img.nguonc.com/images/img-0c84c08c758e612a59138bdad03075ef3e3d27ddf739ff0df11159ceadbe71c9.webp",
+            "created": "2023-08-04T04:25:32.000000Z",
+            "modified": "2025-07-04T17:09:01.000000Z"
+        },
+        {
+            "id": "eyJpdiI6ImZMc2loSXRENitkTGFWK0drait6dWc9PSIsInZhbHVlIjoiMlE3Q0x5SUZnOExhN3F6UHFETHlSZz09IiwibWFjIjoiOTQ4ZDY2NmYwYmQxMzY5NDg3YzViMDY1NjRiMTI3YmExZDhiNjFjMWY2ZWJkNzZkZDE2NmJmYTU0MTBhZWM0ZSJ9",
+            "name": "Bí Mật Bên Hồ",
+            "original_name": "Secrets At The Lake",
+            "slug": "bi-mat-ben-ho",
+            "year": 2019,
+            "description": "<p>Trong một lần tiệc tùng quá đà, Katie và hai người bạn không may gây ra tai nạn và bỏ chạy, khiến chồng lẫn hai con nhỏ của Megan Myers mất mạng. Trớ trêu thay, đúng một năm sau đó, gia đình Katie đã vô tình chọn thuê chính căn nhà của Megan làm nơi nghỉ mát. Từ đây, bí mật động trời lâu nay dày vò những người trong cuộc dần được hé lộ.</p>",
+            "total_episodes": 1,
+            "current_episode": "FULL",
+            "time": "86 phút",
+            "quality": "HD",
+            "language": "Vietsub",
+            "director": "Tim Cruz",
+            "casts": "Nicky Whelan, Anna Hutchison, Alexandria DeBerry",
+            "tmdb": {
+                "id": 665702,
+                "type": "movie",
+                "season": null,
+                "url": "https://www.themoviedb.org/movie/665702"
+            },
+            "imdb": {
+                "id": "tt8564600",
+                "url": "https://www.imdb.com/title/tt8564600/"
+            },
+            "thumb_url": "https://img.nguonc.com/images/img-86274036985b7c5130437b0fe52fce54b8fb574784da4041e14f10172c6b8783.jpg",
+            "thumb_url_webp": "https://img.nguonc.com/images/img-e1d777be23a74fa14e1a36b665f6dcb6a668fab5f8f139509015fc89721be997.webp",
+            "poster_url": "https://img.nguonc.com/images/img-5df0d3bc7d9d436732c142fded2a75a011f6c51828ac05bb61098e1d7375a956.jpg",
+            "poster_url_webp": "https://img.nguonc.com/images/img-29a4c30cd719531d996b388339746294764f4d440d0061f71d0441bb079c2893.webp",
+            "created": "2023-09-14T07:46:22.000000Z",
+            "modified": "2023-09-14T13:25:38.000000Z"
+        }
+    ]
+}

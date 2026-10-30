@@ -1,0 +1,104 @@
+{
+    "status": "success",
+    "movie": {
+        "id": "d0f1a9b2f77a08666d7e113e418643d0",
+        "name": "Dưới Đáy Hồ",
+        "original_name": "The Lake",
+        "slug": "duoi-day-ho",
+        "year": 2025,
+        "description": "Dưới Đáy Hồ là bộ phim kinh dị siêu nhiên lấy cảm hứng từ truyền thuyết đô thị về Hồ Đá Tử Thần - nơi luôn bao phủ bởi những câu chuyện bí ẩn mà giới trẻ thường truyền tai nhau.",
+        "total_episodes": 1,
+        "current_episode": "FULL",
+        "time": "84 phút",
+        "quality": "HD",
+        "language": "Vietsub",
+        "director": "Trần Hữu Tấn",
+        "casts": "Karen Nguyễn, Kay Trần, Thanh Duy, Lâm Hoàng Oanh",
+        "category": {
+            "1": {
+                "group": {
+                    "id": "c4ca4238a0b923820dcc509a6f75849b",
+                    "name": "Định dạng"
+                },
+                "list": [
+                    {
+                        "id": "a87ff679a2f3e71d9181a67b7542122c",
+                        "name": "Phim lẻ"
+                    }
+                ]
+            },
+            "2": {
+                "group": {
+                    "id": "1679091c5a880faf6fb5e6087eb1b2dc",
+                    "name": "Thể loại"
+                },
+                "list": [
+                    {
+                        "id": "c51ce410c124a10e0db5e4b97fc2af39",
+                        "name": "Chính kịch"
+                    },
+                    {
+                        "id": "9bf31c7ff062936a96d3c8bd1f8f2ff3",
+                        "name": "Giả tưởng"
+                    },
+                    {
+                        "id": "70efdf2ec9b086079795c442636b55fb",
+                        "name": "Kinh dị"
+                    }
+                ]
+            },
+            "3": {
+                "group": {
+                    "id": "8e296a067a37563370ded05f5a3bf3ec",
+                    "name": "Năm"
+                },
+                "list": [
+                    {
+                        "id": "fa7cdfad1a5aaf8370ebeda47a1ff1c3",
+                        "name": "2025"
+                    }
+                ]
+            },
+            "4": {
+                "group": {
+                    "id": "67c6a1e7ce56d3d6fa748ab6d9af3fd7",
+                    "name": "Quốc gia"
+                },
+                "list": [
+                    {
+                        "id": "9a1158154dfa42caddbd0694a4e9bdc8",
+                        "name": "Việt Nam"
+                    }
+                ]
+            }
+        },
+        "tmdb": {
+            "id": 1404978,
+            "type": "movie",
+            "season": null,
+            "url": "https://www.themoviedb.org/movie/1404978"
+        },
+        "imdb": {
+            "id": "tt34730636",
+            "url": "https://www.imdb.com/title/tt34730636/"
+        },
+        "thumb_url": "https://img.nguonc.com/images/img-607c2e1784b2f80e35acf189ab13d350ebd818fc93c6e061f3468fc9f36d8555.png",
+        "thumb_url_webp": "https://img.nguonc.com/images/img-b08fe70199eadb5605de324613cfe70ac2828773c8a33a64af0a9c22a30a55c1.webp",
+        "poster_url": "https://img.nguonc.com/images/img-82a31c9209b98df576bd34ec2d555a54920ea7eb8920b6a479ae690ab9580a0c.png",
+        "poster_url_webp": "https://img.nguonc.com/images/img-3152c7ecd980de3825b457dcc7dec374307ca5cae62ee71169d37c77b1c8c51c.webp",
+        "created": "2026-10-29T12:04:06.000000Z",
+        "modified": "2026-10-29T12:17:16.000000Z",
+        "episodes": [
+            {
+                "server_name": "Vietsub #1",
+                "items": [
+                    {
+                        "name": "FULL",
+                        "slug": "full",
+                        "embed": "https://embed2.streamc.xyz/embed.php?hash=19c57041a93f81b9389e5e9ee4677ae3"
+                    }
+                ]
+            }
+        ]
+    }
+}

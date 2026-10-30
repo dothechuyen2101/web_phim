@@ -1,0 +1,53 @@
+# Triển khai production trên một VPS (DB là Supabase, không chạy Postgres trong compose):
+#   cp .env.production.example .env.production   # rồi sửa giá trị
+#   docker compose -f docker-compose.prod.yml --env-file .env.production up -d --build
+services:
+  # Chạy migration một lần mỗi lần deploy rồi thoát
+  migrate:
+    build: { context: ., target: worker }
+    command: ["npx", "prisma", "migrate", "deploy"]
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+    restart: "no"
+
+  web:
+    build:
+      context: .
+      target: web
+      args:
+        SITE_URL: ${SITE_URL}
+        SITE_NAME: ${SITE_NAME}
+        EMBED_HOSTS: ${EMBED_HOSTS}
+    restart: unless-stopped
+    env_file: .env.production
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+
+  worker:
+    build: { context: ., target: worker }
+    restart: unless-stopped
+    env_file: .env.production
+    environment:
+      WEB_INTERNAL_URL: http://web:3000
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      DOMAIN: ${DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - web
+
+volumes:
+  caddy-data:
+  caddy-config:

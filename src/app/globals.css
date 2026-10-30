@@ -1,0 +1,314 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #07080c;
+  --color-surface: #11131b;
+  --color-surface-2: #191c27;
+  --color-line: #262a38;
+  --color-fg: #eef0f5;
+  --color-muted: #9aa1b3;
+  --color-accent: #ffb547;
+  --color-accent-strong: #ffc76e;
+  --color-accent-2: #ff6a5c;
+  --color-accent-fg: #1d1102;
+  --color-danger: #ff6b7a;
+  --color-ok: #3ddc97;
+
+  --font-sans: var(--font-be-vietnam), ui-sans-serif, system-ui, sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --animate-fade-up: fade-up 0.6s var(--ease-out-expo) both;
+  --animate-fade-in: fade-in 0.5s ease-out both;
+  --animate-scale-in: scale-in 0.35s var(--ease-out-expo) both;
+  --animate-ken-burns: ken-burns 14s ease-out both;
+  --animate-shimmer: shimmer 1.6s linear infinite;
+  --animate-progress: progress linear both;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes ken-burns {
+    from {
+      transform: scale(1.12) translate3d(1.5%, 1%, 0);
+    }
+    to {
+      transform: scale(1) translate3d(0, 0, 0);
+    }
+  }
+  @keyframes shimmer {
+    from {
+      background-position: 200% 0;
+    }
+    to {
+      background-position: -200% 0;
+    }
+  }
+  @keyframes progress {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+}
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-fg);
+}
+
+/* Quầng sáng nền cố định ("aurora") */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60rem 40rem at 10% -10%, color-mix(in oklab, var(--color-accent) 9%, transparent), transparent 60%),
+    radial-gradient(50rem 35rem at 100% 0%, color-mix(in oklab, var(--color-accent-2) 7%, transparent), transparent 60%),
+    radial-gradient(40rem 30rem at 50% 110%, color-mix(in oklab, #5b6cff 6%, transparent), transparent 60%);
+}
+
+::selection {
+  background: color-mix(in oklab, var(--color-accent) 40%, transparent);
+}
+
+/* Thanh cuộn mảnh */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line) transparent;
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+@utility glass {
+  background: color-mix(in oklab, var(--color-surface) 62%, transparent);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  border: 1px solid color-mix(in oklab, white 8%, transparent);
+}
+
+@utility text-gradient {
+  background: linear-gradient(100deg, var(--color-accent-strong), var(--color-accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility field {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-line);
+  background: color-mix(in oklab, var(--color-surface) 80%, transparent);
+  padding: 0.6rem 0.85rem;
+  font-size: 0.9rem;
+  color: var(--color-fg);
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+  &:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-accent) 18%, transparent);
+  }
+}
+
+@utility btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  border-radius: 9999px;
+  padding: 0.6rem 1.15rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition:
+    transform 0.2s var(--ease-spring),
+    background-color 0.2s,
+    box-shadow 0.25s,
+    opacity 0.2s,
+    color 0.2s;
+  &:active:not(:disabled) {
+    transform: scale(0.96);
+  }
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+}
+
+@utility btn-primary {
+  background: linear-gradient(100deg, var(--color-accent), var(--color-accent-2));
+  color: var(--color-accent-fg);
+  box-shadow: 0 8px 24px -10px color-mix(in oklab, var(--color-accent-2) 70%, transparent);
+  &:hover:not(:disabled) {
+    box-shadow: 0 12px 32px -8px color-mix(in oklab, var(--color-accent-2) 85%, transparent);
+    transform: translateY(-1px);
+  }
+}
+
+@utility btn-ghost {
+  background: color-mix(in oklab, white 7%, transparent);
+  color: var(--color-fg);
+  border: 1px solid color-mix(in oklab, white 9%, transparent);
+  backdrop-filter: blur(10px);
+  &:hover:not(:disabled) {
+    background: color-mix(in oklab, white 13%, transparent);
+  }
+}
+
+/* Skeleton có vệt sáng chạy ngang */
+@utility skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-2) 0%,
+    color-mix(in oklab, var(--color-surface-2) 55%, var(--color-line)) 50%,
+    var(--color-surface-2) 100%
+  );
+  background-size: 200% 100%;
+  animation: var(--animate-shimmer);
+}
+
+/* Phần tử xuất hiện lần lượt: đặt style={{ "--i": index }} */
+@utility stagger {
+  animation: var(--animate-fade-up);
+  animation-delay: calc(min(var(--i, 0), 12) * 45ms);
+}
+
+/* ---- View Transitions: skeleton trượt xuống mờ đi, nội dung trượt lên hiện ra ---- */
+:root {
+  --duration-exit: 150ms;
+  --duration-enter: 220ms;
+  --duration-move: 420ms;
+}
+::view-transition-old(.slide-down) {
+  animation:
+    var(--duration-exit) ease-out both vt-fade reverse,
+    var(--duration-exit) ease-out both vt-slide-y reverse;
+}
+::view-transition-new(.slide-up) {
+  animation:
+    var(--duration-enter) ease-in var(--duration-exit) both vt-fade,
+    var(--duration-move) var(--ease-out-expo) both vt-slide-y;
+}
+@keyframes vt-fade {
+  from {
+    filter: blur(3px);
+    opacity: 0;
+  }
+  to {
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+@keyframes vt-slide-y {
+  from {
+    transform: translateY(12px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Chuyển tập trước / sau: nội dung trượt theo hướng, header đứng yên làm điểm neo */
+::view-transition-old(.nav-forward) {
+  --slide-offset: -60px;
+  animation:
+    150ms ease-in both vt-fade reverse,
+    400ms ease-in-out both vt-slide-x reverse;
+}
+::view-transition-new(.nav-forward) {
+  --slide-offset: 60px;
+  animation:
+    210ms ease-out 150ms both vt-fade,
+    400ms ease-in-out both vt-slide-x;
+}
+::view-transition-old(.nav-back) {
+  --slide-offset: 60px;
+  animation:
+    150ms ease-in both vt-fade reverse,
+    400ms ease-in-out both vt-slide-x reverse;
+}
+::view-transition-new(.nav-back) {
+  --slide-offset: -60px;
+  animation:
+    210ms ease-out 150ms both vt-fade,
+    400ms ease-in-out both vt-slide-x;
+}
+@keyframes vt-slide-x {
+  from {
+    translate: var(--slide-offset);
+  }
+  to {
+    translate: 0;
+  }
+}
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(site-header) {
+  display: none;
+}
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+/* Người dùng bật "giảm chuyển động" trong hệ điều hành: tắt hiệu ứng */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after,
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,124 @@
+{
+    "status": "success",
+    "movie": {
+        "id": "249e0710272ffdc8a91dd80b2e24eb2d",
+        "name": "Kizu Darake Seijo Yori Houfuku Wo Komete (Phần 2)",
+        "original_name": "With Vengeance, Sincerely, Your Broken Saintess (Season 2)",
+        "slug": "kizu-darake-seijo-yori-houfuku-wo-komete-phan-2",
+        "year": 2026,
+        "description": "Lua là một ứng viên thánh nữ sở hữu sức mạnh chữa lành. Nhưng năng lực của cô có một điểm yếu: cô chỉ có thể chữa trị cho người khác bằng cách chuyển vết thương của họ sang cơ thể mình. Vì điều này, những người khác đã bắt nạt cô, gọi cô là \"Thánh nữ sa ngã.\" Nhưng điều đó không làm Lua bận tâm vì người bạn thân nhất Arianne luôn đứng lên bảo vệ cô.\r\n\r\nMột ngày nọ, người mà Lua thầm thương trộm nhớ, Chỉ huy Garrett, đang đứng trước bờ vực cái chết do một cuộc tấn công của quái thú. Lua đã chữa trị cho anh, khiến cô kiệt sức đến sát bờ vực cái chết. Khi tỉnh dậy, cô phát hiện ra rằng toàn bộ công trạng đã được dành cho Arianne, và cô cuối cùng cũng nhìn thấy bản chất thật của người bạn thân nhất. Tuyệt vọng, Lua cảm thấy lạc lõng và bất lực khi hoàng tử thứ hai xuất hiện trước mặt cô với một lời đề nghị hấp dẫn. Chuyện gì sẽ xảy ra với Lua khi cô bắt đầu cuộc đời mới với tư cách là một ác nữ?",
+        "total_episodes": 6,
+        "current_episode": "Tập 5",
+        "time": "13 phút/tập",
+        "quality": "HD",
+        "language": "Vietsub",
+        "director": null,
+        "casts": null,
+        "category": {
+            "1": {
+                "group": {
+                    "id": "c4ca4238a0b923820dcc509a6f75849b",
+                    "name": "Định dạng"
+                },
+                "list": [
+                    {
+                        "id": "eccbc87e4b5ce2fe28308fd9f2a7baf3",
+                        "name": "Phim bộ"
+                    }
+                ]
+            },
+            "2": {
+                "group": {
+                    "id": "1679091c5a880faf6fb5e6087eb1b2dc",
+                    "name": "Thể loại"
+                },
+                "list": [
+                    {
+                        "id": "45c48cce2e2d7fbdea1afc51c7c6ad26",
+                        "name": "Hoạt hình"
+                    },
+                    {
+                        "id": "9bf31c7ff062936a96d3c8bd1f8f2ff3",
+                        "name": "Giả tưởng"
+                    },
+                    {
+                        "id": "3c59dc048e8850243be8079a5c74d079",
+                        "name": "Khoa học viễn tưởng"
+                    }
+                ]
+            },
+            "3": {
+                "group": {
+                    "id": "8e296a067a37563370ded05f5a3bf3ec",
+                    "name": "Năm"
+                },
+                "list": [
+                    {
+                        "id": "7e7757b1e12abcb736ab9a754ffb617a",
+                        "name": "2026"
+                    }
+                ]
+            },
+            "4": {
+                "group": {
+                    "id": "67c6a1e7ce56d3d6fa748ab6d9af3fd7",
+                    "name": "Quốc gia"
+                },
+                "list": [
+                    {
+                        "id": "d2ddea18f00665ce8623e36bd4e3c7c5",
+                        "name": "Nhật Bản"
+                    }
+                ]
+            }
+        },
+        "tmdb": {
+            "id": 293124,
+            "type": "tv",
+            "season": 2,
+            "url": "https://www.themoviedb.org/tv/293124/season/2"
+        },
+        "imdb": {
+            "id": "tt36986811",
+            "url": "https://www.imdb.com/title/tt36986811/"
+        },
+        "thumb_url": "https://img.nguonc.com/images/img-4a51f96197755777fba73f8e87bb07463b996a0dfc547755c50295b4dc68a34f.png",
+        "thumb_url_webp": "https://img.nguonc.com/images/img-21714b6fe7abf125961359877d60d6fd451aca3000d44fa4a5bbcc8ebe1952f5.webp",
+        "poster_url": "https://img.nguonc.com/images/img-9540bf942332ac5df89f8deb88379a165b2e7c07f7c4666fa6eea33219ca8843.png",
+        "poster_url_webp": "https://img.nguonc.com/images/img-6132d5c94995b576836f3e54bc998f34e1f25849c41bfdb0bccab48f3f367a7d.webp",
+        "created": "2026-10-01T16:50:14.000000Z",
+        "modified": "2026-10-29T16:33:38.000000Z",
+        "episodes": [
+            {
+                "server_name": "Vietsub #1",
+                "items": [
+                    {
+                        "name": "1",
+                        "slug": "tap-1",
+                        "embed": "https://embed11.streamc.xyz/embed.php?hash=e6feb884fe5e991dacd7befe774af01d"
+                    },
+                    {
+                        "name": "2",
+                        "slug": "tap-2",
+                        "embed": "https://embed14.streamc.xyz/embed.php?hash=ba333319aeca331d0441a725cc09db75"
+                    },
+                    {
+                        "name": "3",
+                        "slug": "tap-3",
+                        "embed": "https://embed1.streamc.xyz/embed.php?hash=37f25ba61505f937ddb7917139f97bd6"
+                    },
+                    {
+                        "name": "4",
+                        "slug": "tap-4",
+                        "embed": "https://embed15.streamc.xyz/embed.php?hash=749e5020f438663143a897509b0511aa"
+                    },
+                    {
+                        "name": "5",
+                        "slug": "tap-5",
+                        "embed": "https://embed14.streamc.xyz/embed.php?hash=3e42c97361792fd8c5ca45d83e5adfac"
+                    }
+                ]
+            }
+        ]
+    }
+}

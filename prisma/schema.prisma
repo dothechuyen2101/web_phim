@@ -1,0 +1,273 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum MovieType {
+  SINGLE
+  SERIES
+  ANIMATION
+  TVSHOW
+}
+
+enum MovieStatus {
+  ONGOING
+  COMPLETED
+  UPCOMING
+  UNKNOWN
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum CrawlKind {
+  INCREMENTAL
+  BACKFILL
+  TAXONOMY
+}
+
+enum CrawlStatus {
+  RUNNING
+  SUCCESS
+  FAILED
+}
+
+enum TakedownStatus {
+  PENDING
+  DONE
+  REJECTED
+}
+
+model Movie {
+  id               Int         @id @default(autoincrement())
+  slug             String      @unique
+  name             String
+  originName       String      @default("")
+  altNames         String[]
+  description      String      @default("")
+  posterUrl        String?
+  thumbUrl         String?
+  type             MovieType
+  status           MovieStatus @default(UNKNOWN)
+  year             Int?
+  duration         String?
+  episodeCurrent   String?
+  episodeTotal     Int?
+  quality          String?
+  lang             String?
+  actors           String[]
+  directors        String[]
+  /// "tv:293124:2" | "movie:1453407:0" — khóa gộp chính giữa các nguồn
+  tmdbKey          String?     @unique
+  imdbId           String?
+  /// originName đã chuẩn hóa + năm + loại — khóa gộp dự phòng
+  matchKey         String?
+  /// tên + tên gốc + tên khác, đã bỏ dấu và viết thường (có index trigram)
+  searchText       String      @default("")
+  hidden           Boolean     @default(false)
+  viewCount        Int         @default(0)
+  sourceModifiedAt DateTime?
+  /// lần cuối chạy "tìm nguồn thay thế" (tránh chạy lặp khi link chết)
+  rescuedAt        DateTime?
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+
+  genres    Genre[]
+  countries Country[]
+  sources   MovieSource[]
+  episodes  Episode[]
+  favorites Favorite[]
+  histories WatchHistory[]
+  reports   Report[]
+
+  @@index([searchText(ops: raw("gin_trgm_ops"))], type: Gin, map: "Movie_searchText_trgm_idx")
+  @@index([imdbId])
+  @@index([matchKey])
+  @@index([hidden, sourceModifiedAt])
+  @@index([hidden, type, sourceModifiedAt])
+  @@index([year])
+}
+
+model Genre {
+  id     Int     @id @default(autoincrement())
+  slug   String  @unique
+  name   String
+  movies Movie[]
+}
+
+model Country {
+  id     Int     @id @default(autoincrement())
+  slug   String  @unique
+  name   String
+  movies Movie[]
+}
+
+model Source {
+  id             Int       @id @default(autoincrement())
+  key            String    @unique
+  name           String
+  baseUrl        String
+  enabled        Boolean   @default(true)
+  /// số lớn hơn = ưu tiên metadata cao hơn
+  priority       Int       @default(0)
+  lastSyncedAt   DateTime?
+  /// trang tiếp theo cần lấy khi backfill (null = chưa chạy hoặc đã xong)
+  backfillCursor Int?
+  /// domain dự phòng, thử lần lượt khi baseUrl lỗi mạng / 5xx (nguồn hay đổi domain)
+  mirrors        String[]
+  /// circuit breaker: nguồn lỗi liên tục thì tạm dừng đồng bộ tới thời điểm này
+  pausedUntil    DateTime?
+  failureStreak  Int       @default(0)
+  lastError      String?
+
+  movieSources MovieSource[]
+  links        EpisodeLink[]
+  crawlRuns    CrawlRun[]
+}
+
+model MovieSource {
+  id           Int       @id @default(autoincrement())
+  movieId      Int
+  sourceId     Int
+  externalSlug String
+  externalId   String?
+  lastModified DateTime?
+
+  movie  Movie  @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  source Source @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+
+  @@unique([sourceId, externalSlug])
+  @@index([movieId])
+}
+
+model Episode {
+  id        Int    @id @default(autoincrement())
+  movieId   Int
+  /// "1", "12-5", "full"… — dùng trong URL /xem/[slug]/tap-[key]
+  key       String
+  name      String
+  sortOrder Float
+
+  movie Movie         @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  links EpisodeLink[]
+
+  @@unique([movieId, key])
+  @@index([movieId, sortOrder])
+}
+
+model EpisodeLink {
+  id         Int      @id @default(autoincrement())
+  episodeId  Int
+  sourceId   Int
+  serverName String
+  embedUrl   String
+  /// link luồng gốc (m3u8) nếu nguồn cung cấp — dùng để kiểm tra link sống/chết
+  streamUrl  String?
+  broken     Boolean  @default(false)
+  /// số lần kiểm tra liên tiếp thấy link chết
+  failCount  Int      @default(0)
+  checkedAt  DateTime?
+  updatedAt  DateTime @updatedAt
+
+  episode Episode  @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+  source  Source   @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+  reports Report[]
+
+  @@unique([episodeId, sourceId, serverName])
+  @@index([broken, checkedAt])
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  name         String
+  passwordHash String
+  role         Role     @default(USER)
+  createdAt    DateTime @default(now())
+
+  favorites Favorite[]
+  histories WatchHistory[]
+}
+
+model Favorite {
+  userId    Int
+  movieId   Int
+  createdAt DateTime @default(now())
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  movie Movie @relation(fields: [movieId], references: [id], onDelete: Cascade)
+
+  @@id([userId, movieId])
+  @@index([userId, createdAt])
+}
+
+model WatchHistory {
+  userId     Int
+  movieId    Int
+  episodeKey String
+  updatedAt  DateTime @updatedAt
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  movie Movie @relation(fields: [movieId], references: [id], onDelete: Cascade)
+
+  @@id([userId, movieId])
+  @@index([userId, updatedAt])
+}
+
+model Report {
+  id            Int      @id @default(autoincrement())
+  movieId       Int
+  episodeLinkId Int?
+  reason        String
+  /// băm (IP + secret) của người báo — đếm số người khác nhau, không lưu IP thật
+  reporterHash  String?
+  resolved      Boolean  @default(false)
+  createdAt     DateTime @default(now())
+
+  movie       Movie        @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  episodeLink EpisodeLink? @relation(fields: [episodeLinkId], references: [id], onDelete: SetNull)
+
+  @@index([resolved, createdAt])
+  @@index([episodeLinkId, createdAt])
+}
+
+model TakedownRequest {
+  id           Int            @id @default(autoincrement())
+  contactName  String
+  contactEmail String
+  urls         String
+  message      String
+  status       TakedownStatus @default(PENDING)
+  createdAt    DateTime       @default(now())
+  handledAt    DateTime?
+
+  @@index([status, createdAt])
+}
+
+/// Tác vụ định kỳ khi chạy serverless (Vercel): khóa chống hai lượt chạy chồng nhau + lần chạy gần nhất
+model CronState {
+  name        String    @id
+  lockedUntil DateTime?
+  lastRunAt   DateTime?
+}
+
+model CrawlRun {
+  id         Int         @id @default(autoincrement())
+  sourceId   Int
+  kind       CrawlKind
+  status     CrawlStatus @default(RUNNING)
+  startedAt  DateTime    @default(now())
+  finishedAt DateTime?
+  stats      Json?
+  error      String?
+
+  source Source @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+
+  @@index([sourceId, startedAt])
+}
