@@ -6,7 +6,7 @@ import { runTick } from "@/ingest/tick";
 /** Giới hạn của Vercel Hobby (Fluid compute): tối đa 300 giây. */
 export const maxDuration = 300;
 
-/** Supabase pg_cron (mỗi 5 phút) và Vercel Cron (dự phòng mỗi ngày) gửi `Authorization: Bearer <CRON_SECRET>`. */
+/** Supabase pg_cron (mỗi 30 phút) và Vercel Cron (dự phòng mỗi ngày) gửi `Authorization: Bearer <CRON_SECRET>`. */
 function authorized(request: NextRequest) {
   const secret = process.env.CRON_SECRET?.trim();
   if (!secret) return false;

@@ -6,7 +6,7 @@ import { ensureSources } from "./sync";
 
 /**
  * Một "nhịp" đồng bộ cho môi trường serverless (Vercel), thay cho worker chạy liên tục.
- * Được gọi định kỳ (Supabase pg_cron mỗi 5 phút → /api/cron/tick) và làm trong giới hạn thời gian:
+ * Được gọi định kỳ (Supabase pg_cron mỗi 30 phút → /api/cron/tick) và làm trong giới hạn thời gian:
  *   1. đồng bộ tăng dần mọi nguồn
  *   2. xử lý job trong hàng đợi pg-boss (admin bấm, báo lỗi, tìm nguồn thay thế, backfill từng đợt nhỏ)
  *   3. việc định kỳ khi tới hạn: kiểm tra link (mỗi giờ), thể loại / quốc gia (mỗi ngày)

@@ -30,9 +30,19 @@ async function Sources() {
         Nguồn & đồng bộ
       </AdminTitle>
       <p className="mb-5 text-sm text-muted">
-        Các nút bên dưới chỉ xếp job vào hàng đợi; <strong className="text-fg">worker</strong> (<code>npm run worker</code>) phải đang chạy để
-        xử lý. Worker tự đồng bộ tăng dần mỗi 5 phút (và ngay khi khởi động), kiểm tra link sống/chết mỗi giờ và cập nhật thể loại lúc 3h sáng. Nguồn
-        lỗi liên tục (bị chặn, sập, đổi domain) sẽ tự tạm dừng 15 phút → 30 phút → … tối đa 6 giờ rồi thử lại.
+        {process.env.VERCEL ? (
+          <>
+            Các nút bên dưới chỉ xếp job vào hàng đợi; job được xử lý ở <strong className="text-fg">lần tick kế tiếp</strong> (Supabase pg_cron gọi
+            web mỗi 30 phút). Mỗi tick đồng bộ tăng dần mọi nguồn; kiểm tra link sống/chết mỗi giờ và cập nhật thể loại mỗi ngày.
+          </>
+        ) : (
+          <>
+            Các nút bên dưới chỉ xếp job vào hàng đợi; <strong className="text-fg">worker</strong> (<code>npm run worker</code>) phải đang chạy
+            để xử lý. Worker tự đồng bộ tăng dần mỗi 5 phút (và ngay khi khởi động), kiểm tra link sống/chết mỗi giờ và cập nhật thể loại lúc 3h
+            sáng.
+          </>
+        )}{" "}
+        Nguồn lỗi liên tục (bị chặn, sập, đổi domain) sẽ tự tạm dừng 15 phút → 30 phút → … tối đa 6 giờ rồi thử lại.
       </p>
       <div className="space-y-4">
         {sources.map((source) => (

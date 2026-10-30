@@ -1,6 +1,6 @@
 /**
  * Lập lịch "nhịp đồng bộ" cho bản triển khai trên Vercel bằng Supabase pg_cron + pg_net:
- * cứ mỗi 5 phút Postgres gửi POST tới <SITE_URL>/api/cron/tick kèm Authorization: Bearer <CRON_SECRET>.
+ * cứ mỗi 30 phút (đổi bằng --schedule) Postgres gửi POST tới <SITE_URL>/api/cron/tick kèm Authorization: Bearer <CRON_SECRET>.
  * (Vercel Hobby chỉ cho cron 1 lần/ngày nên không dùng được cho việc này.)
  *
  *   npm run setup-cron -- --url https://ten-du-an.vercel.app      (CRON_SECRET lấy từ .env, phải trùng với Vercel)
@@ -14,7 +14,7 @@ const JOB_NAME = "web-phim-tick";
 const { values } = parseArgs({
   options: {
     url: { type: "string" },
-    schedule: { type: "string", default: "*/5 * * * *" },
+    schedule: { type: "string", default: "*/30 * * * *" },
     remove: { type: "boolean", default: false },
   },
 });

@@ -4,7 +4,7 @@ Web xem phim tổng hợp (phim lẻ, phim bộ, hoạt hình, anime, TV show). 
 
 - **Next.js 16** (App Router, Cache Components) + Tailwind CSS 4
 - **PostgreSQL trên Supabase** + Prisma 7, tìm kiếm không dấu bằng `pg_trgm`
-- **Worker** đồng bộ dữ liệu riêng, xếp lịch bằng `pg-boss` (chạy trên Postgres, không cần Redis). Trên Vercel không có worker, thay bằng "tick" do Supabase pg_cron gọi mỗi 5 phút
+- **Worker** đồng bộ dữ liệu riêng, xếp lịch bằng `pg-boss` (chạy trên Postgres, không cần Redis). Trên Vercel không có worker, thay bằng "tick" do Supabase pg_cron gọi mỗi 30 phút
 - Triển khai được lên **Vercel (gói Hobby miễn phí)** hoặc **VPS bằng Docker**
 - Đăng nhập bằng email/mật khẩu (scrypt + cookie JWT), có trang quản trị
 
@@ -73,7 +73,7 @@ npm run dev:all                  # web http://localhost:3100 + worker đồng b�
 | `npm run enqueue -- --source kkphim --mode backfill` | Gửi job cho worker đang chạy |
 | `npm run merge-duplicates [-- --apply]` | Tìm và gộp phim bộ bị trùng (bản không ghi số mùa TMDB nằm cạnh bản có mùa) |
 | `npm run create-admin -- --email ... --password ...` | Tạo admin, hoặc cấp quyền admin cho tài khoản đã có |
-| `npm run setup-cron -- --url https://... [--remove]` | (Vercel) Lập lịch Supabase pg_cron gọi `/api/cron/tick` mỗi 5 phút |
+| `npm run setup-cron -- --url https://... [--remove]` | (Vercel) Lập lịch Supabase pg_cron gọi `/api/cron/tick` (mặc định mỗi 30 phút, đổi bằng `--schedule "*/15 * * * *"`) |
 | `npm test` | Unit test (chuẩn hóa dữ liệu, adapter trên dữ liệu mẫu thật) |
 | `npm run lint` / `npm run typecheck` | Kiểm tra code |
 
@@ -165,7 +165,7 @@ Sau mỗi lần đồng bộ, worker gọi `POST /api/revalidate` (có secret), 
 ## Triển khai lên Vercel (gói Hobby miễn phí)
 
 Vercel không có tiến trình chạy liên tục, nên **không có worker**. Việc đồng bộ chạy theo từng "tick":
-- **Supabase pg_cron + pg_net** gửi `POST /api/cron/tick` mỗi 5 phút (kèm `Authorization: Bearer <CRON_SECRET>`). Gói Hobby của Vercel chỉ cho Cron chạy **1 lần/ngày**, không đủ cho việc này.
+- **Supabase pg_cron + pg_net** gửi `POST /api/cron/tick` mỗi 30 phút (kèm `Authorization: Bearer <CRON_SECRET>`). Gói Hobby của Vercel chỉ cho Cron chạy **1 lần/ngày**, không đủ cho việc này.
 - Route trả `202` ngay, rồi chạy tiếp tối đa ~4 phút (giới hạn function là 300 giây):
   1. Đồng bộ tăng dần (tối đa 5 trang mỗi nguồn).
   2. Xử lý job trong hàng đợi: nút trong admin, tìm nguồn thay thế khi link chết, backfill (mỗi job 2 trang).
@@ -203,7 +203,8 @@ Vercel không có tiến trình chạy liên tục, nên **không có worker**. 
 
 **Lưu ý:**
 - **Lấy toàn bộ kho phim:** mỗi tick chỉ có vài phút, nên backfill khoảng 4.700 trang qua tick sẽ mất nhiều ngày. Hãy chạy từ máy: `npm run sync -- --mode backfill` (dừng giữa chừng thì chạy lại, nó tiếp tục từ con trỏ đã lưu).
-- **Gói Hobby chỉ dùng cho mục đích phi thương mại**: không quảng cáo, không thu phí. Theo dõi hạn mức ở mục **Usage** của dashboard. Tick mỗi 5 phút là khoảng 8.600 lượt gọi/tháng, phần lớn thời gian chỉ chờ mạng.
+- **Gói Hobby chỉ dùng cho mục đích phi thương mại**: không quảng cáo, không thu phí. Theo dõi hạn mức ở mục **Usage** của dashboard. Tick mỗi 30 phút là khoảng 1.500 lượt gọi/tháng, phần lớn thời gian chỉ chờ mạng.
+- **Tập mới tới web chậm nhất khoảng 30 phút**, và job xếp từ admin (nút đồng bộ, backfill) hay từ việc tìm nguồn thay thế cũng phải chờ tới lần tick kế tiếp. Muốn nhanh hơn thì chạy lại `setup-cron` với `--schedule` dày hơn. Đo ngày 30/10, KKPhim có nhiều nhất khoảng 20 phim đổi trong 30 phút, nằm gọn trong giới hạn 5 trang mỗi nguồn mỗi tick.
 - **Rủi ro bị gỡ project:** Vercel có thể gỡ project khi nhận khiếu nại bản quyền. Hãy xử lý `/admin/yeu-cau-go` nhanh.
 - **Gỡ lịch tick:** `npm run setup-cron -- --remove`.
 - **Đổi `CRON_SECRET`:** sửa trên Vercel và trong `.env`, Redeploy, rồi chạy lại `setup-cron`.
